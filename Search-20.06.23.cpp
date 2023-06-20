@@ -1,4 +1,6 @@
 #include <iostream>
+#include <chrono>
+#include <time.h>
 using namespace std;
 
 class search
@@ -15,14 +17,19 @@ class search
 void search::ls()
 {
     int i=0;
+    auto start1 = std::chrono::high_resolution_clock::now();
     for(;i<n;i++)
     {
+        start1 = std::chrono::high_resolution_clock::now();
         if(a[i]==key)
         {
-            cout<<"\nFound at "<<i+1<<" position   - By linear search";
-            return;
+            cout<<"\nFound at "<<i+1<<" position   - By linear search"<<endl;
+            break;
         }
     }
+    auto finish1 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> t = finish1 - start1;
+    std::cout << "Elapsed time: " << t.count() << " s\n";
     if(i==n)
     {
         cout<<"\nNot found  - by linear search";
@@ -32,13 +39,15 @@ void search::ls()
 void search::bs()
 {
     int l=0, h=n-1, m;
-    while(l<h)
+    auto start2 = std::chrono::high_resolution_clock::now();
+    while(l<=h)
     {
-        m= n/2;
+        auto start2 = std::chrono::high_resolution_clock::now();
+        m= (h+l)/2;
         if(a[m]==key)
         {
-            cout<<"\nFound at position "<<m+1<<"  - by binary search";
-            return;
+            cout<<"\nFound at position "<<m+1<<"  - by binary search"<<endl;
+            break;
         }
         else if(key > a[m])
         {
@@ -49,7 +58,10 @@ void search::bs()
             h=m-1;
         }
     }
-    if(l>=h)
+    auto finish2 = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> t = finish2 - start2;
+    std::cout << "Elapsed time: " << t.count() << " s\n";
+    if(l>h)
     {
         cout<<"\nNot found  - by binary search";
     }
@@ -64,6 +76,7 @@ void search::getinput(int s[20],int k,int num)
     key=k;
     n=num;
 }
+
 int main()
 {
     int a[20];
@@ -81,4 +94,5 @@ int main()
     s.getinput(a,k,n);
     s.ls();
     s.bs();
+    return 0;
 }
