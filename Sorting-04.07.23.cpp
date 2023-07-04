@@ -4,37 +4,60 @@ using namespace std;
 class Sort
 {
     private:
-        int a[20], n;
+        int a[10], n;
     public:
         void selection();
-        void getinput(int b[20], int num);
+        void bubble();
+        void getinput();
         void Print();
+        void swap(int& a, int& b);
 };
+
+void Sort::bubble()
+{
+    int i,j;
+    for(i=0;i<n-1;i++)
+    {
+        for(j=i;j<n;j++)
+        {
+            if(a[j]>a[j+1])
+            {
+                swap(a[j],a[j+1]);
+            }
+        }
+    }
+}
 
 void Sort::selection()
 {
     int i,j,min,temp;
-    for(i=0;1<n-1;i++)
+    for(i=0;i<n-1;i++)
     {
         min = i;
         for(j=i+1;j<n;j++)
         {
-            if(min>a[j])
+            if(a[min]>a[j])
                 min = j;
         }
-        temp = a[min];
-        a[min] = a[i];
-        a[i] = temp;
+        swap(a[min], a[i]);
     }
 }
 
-void Sort::getinput(int b[20], int num)
+void Sort::swap(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+void Sort::getinput()
 {
-    for(int i=0;i<num;i++)
+    cout<<"Enter the number of elements"<<endl;
+    cin>>n;
+    cout<<"Enter array elements : ";
+    for(int i=0;i<n;i++)
     {
-        a[i]=b[i];
+        cin>>a[i];
     }
-    n=num;
 }
 
 void Sort::Print()
@@ -47,17 +70,18 @@ void Sort::Print()
 
 int main()
 {
-    int b[20], num;
-    cout<<"Enter the number of elements"<<endl;
-    cin>>num;
-    cout<<"Enter array elements : ";
-    for(int i=0;i<num;i++)
-    {
-        cin>>b[i];
-    }
+    int choice;
+    cout<<"Enter:\n1.Bubble sort\n2.Selection sort"<<endl;
+    cin>>choice;
     Sort s;
-    s.getinput(b,num);
-    s.selection();
+    s.getinput();
+    if(choice==1)
+        s.bubble();
+    else if(choice==2)
+        s.selection();
+    else
+        cout<<"Invalid Entry"<<endl;
     cout<<"\nSorted array :\n";
     s.Print();
+    return 0;
 }
