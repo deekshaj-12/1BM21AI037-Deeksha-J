@@ -1,5 +1,7 @@
 #include <iostream>
 
+using namespace std;
+
 class Dijkstra {
 private:
     int V;  
@@ -53,27 +55,29 @@ void Dijkstra::findShortestPath(int src) {
 }
 
 void Dijkstra::printShortestPath(int src) {
-    std::cout << "Shortest paths from node " << src << " to all other nodes:\n";
+    cout << "Shortest paths from node " << src << " to all other nodes:\n";
     for (int i = 0; i < V; ++i) {
-        std::cout << "Node " << i << ": ";
+        cout << "Node " << i << ": ";
         if (dist[i] == INFINITY) {
-            std::cout << "Not reachable\n";
+            cout << "Not reachable\n";
         } else {
-            std::cout << dist[i] << " units away\n";
+            cout << dist[i] << " units away\n";
         }
     }
 }
 
 int main() {
-    int V ; 
-    std::cout << "Enter number of nodes: ";
-    std::cin >> V;
-    Dijkstra dijkstra(V);
+    int numNodes, numEdges;
+    cout << "Enter the number of nodes: ";
+    cin >> numNodes;
+    cout << "Enter the number of edges: ";
+    cin >> numEdges;
+    Dijkstra dijkstra(numNodes);
 
-    std::cout << "Enter the vertice numbers and the weight between them:\n";
-    for (int i = 0; i < V; i++) {
+    cout << "Enter the vertice numbers and the weight between them:\n";
+    for (int i = 0; i < numEdges; i++) {
         int v1, v2, w;
-        std::cin >> v1 >> v2 >> w;
+        cin >> v1 >> v2 >> w;
         dijkstra.addEdge(v1, v2, w);
     }
 
